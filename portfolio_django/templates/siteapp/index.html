@@ -1,0 +1,166 @@
+{% extends "siteapp/base.html" %}
+{% load static %}
+
+{% block title %}Ken Kimwe | Full Stack Software Engineer{% endblock %}
+{% block meta_description %}Ken Kimwe engineers scalable full-stack systems with enterprise-grade reliability, performance, and product focus.{% endblock %}
+{% block head_extra %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Ken Kimwe",
+  "jobTitle": "Full Stack Software Engineer",
+  "url": "http://127.0.0.1:8000/",
+  "address": {
+    "@type": "PostalAddress",
+    "addressCountry": "Kenya"
+  },
+  "knowsAbout": ["Django", "React", "Node.js", "APIs", "Cloud Deployment"]
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<section class="relative overflow-hidden section pt-10 pb-16">
+  <div class="absolute inset-0 pointer-events-none">
+    <div class="absolute left-1/2 top-6 -translate-x-1/2 h-72 w-72 rounded-full bg-[radial-gradient(circle,rgba(167,139,250,0.45),transparent_62%)]"></div>
+    <div class="absolute left-1/2 top-24 -translate-x-1/2 h-[30rem] w-[30rem] rounded-full bg-[radial-gradient(circle,rgba(96,165,250,0.34),transparent_65%)]"></div>
+  </div>
+  <div class="container-wrap relative">
+    <div class="text-center reveal">
+      <span class="k-badge"><span class="h-2 w-2 rounded-full bg-[var(--success)]"></span>Open to Work</span>
+      <h1 class="display-font mt-6 text-[2.9rem] sm:text-[5rem] md:text-[7rem] lg:text-[8.5rem] leading-[0.86] tracking-[-0.04em] font-extrabold text-white/90">
+        FULL STACK
+        <br>
+        ENGINEER
+      </h1>
+    </div>
+
+    <div class="mt-2 flex justify-center reveal">
+      <div class="face-tracker" aria-label="Illustrated avatar with cursor-following eyes">
+        <div class="avatar-head">
+          <div class="face-eyes">
+            <div class="face-eye js-eye"><span class="face-pupil js-pupil"></span></div>
+            <div class="face-eye js-eye"><span class="face-pupil js-pupil"></span></div>
+          </div>
+          <div class="face-smile"></div>
+        </div>
+        <div class="avatar-body"></div>
+        <div class="avatar-legs"><span></span><span></span></div>
+      </div>
+    </div>
+
+    <div class="mx-auto mt-5 max-w-3xl text-center reveal">
+      <p class="text-slate-300 uppercase tracking-[0.22em] text-xs">Ken Kimwe | Kenya | About 2 Years Experience</p>
+      <h2 class="section-title mt-3">Engineering Scalable Systems That Drive Impact.</h2>
+      <p class="section-sub mx-auto">
+        I build high-reliability platforms that combine strong architecture, clean user experience, and measurable business outcomes. Clients hire me when software needs to perform under real pressure.
+      </p>
+      <div class="mt-8 flex flex-wrap justify-center gap-4">
+        <a href="{% url 'contact' %}" class="k-btn k-btn-primary">Work With Me</a>
+        <a href="#featured-projects" class="k-btn k-btn-secondary">View Projects</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="what-i-do" class="section">
+  <div class="container-wrap">
+    <div class="reveal">
+      <h2 class="section-title">What I Do</h2>
+      <p class="section-sub">I deliver systems that are engineered for growth, reliability, and long-term maintainability.</p>
+    </div>
+    <div class="mt-10 grid md:grid-cols-3 gap-6">
+      {% for item in service_items %}
+      <article class="k-card p-7 reveal">
+        <img src="{% static item.icon %}" alt="" class="w-10 h-10" loading="lazy">
+        <h3 class="mt-5 text-2xl font-bold text-white">{{ item.title }}</h3>
+        <p class="mt-3 text-slate-300">{{ item.description }}</p>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section id="featured-projects" class="section">
+  <div class="container-wrap">
+    <div class="reveal">
+      <h2 class="section-title">Featured Projects</h2>
+      <p class="section-sub">Selected work where architecture and product strategy produced tangible business value.</p>
+    </div>
+    <div class="mt-10 grid lg:grid-cols-3 sm:grid-cols-2 gap-6">
+      {% for item in portfolio_items %}
+      {% if forloop.counter <= 3 %}
+      <article class="k-card overflow-hidden reveal">
+        <img src="{% static item.image %}" alt="{{ item.title }}" class="w-full h-48 object-cover" loading="lazy">
+        <div class="p-6">
+          <h3 class="text-2xl font-bold text-white">{{ item.title }}</h3>
+          <p class="mt-2 text-slate-300">{{ item.info }}</p>
+          <a href="{% url 'portfolio' %}" class="inline-block mt-4 text-sky-300 hover:text-sky-200 no-underline font-semibold">View case study</a>
+        </div>
+      </article>
+      {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section id="process" class="section">
+  <div class="container-wrap">
+    <div class="reveal">
+      <h2 class="section-title">My Process</h2>
+      <p class="section-sub">A systematic, engineering-first workflow built to reduce risk and accelerate delivery.</p>
+    </div>
+    <div class="mt-10 grid md:grid-cols-4 gap-5">
+      <article class="k-card p-6 reveal">
+        <p class="text-xs uppercase tracking-wider text-slate-400">Step 01</p>
+        <h3 class="mt-2 text-xl font-bold">Discover</h3>
+        <p class="mt-2 text-slate-300">Clarify business goals, users, and constraints before writing code.</p>
+      </article>
+      <article class="k-card p-6 reveal">
+        <p class="text-xs uppercase tracking-wider text-slate-400">Step 02</p>
+        <h3 class="mt-2 text-xl font-bold">Architect</h3>
+        <p class="mt-2 text-slate-300">Design robust system boundaries, data flows, and API contracts.</p>
+      </article>
+      <article class="k-card p-6 reveal">
+        <p class="text-xs uppercase tracking-wider text-slate-400">Step 03</p>
+        <h3 class="mt-2 text-xl font-bold">Build</h3>
+        <p class="mt-2 text-slate-300">Implement clean, tested, and maintainable code with performance in mind.</p>
+      </article>
+      <article class="k-card p-6 reveal">
+        <p class="text-xs uppercase tracking-wider text-slate-400">Step 04</p>
+        <h3 class="mt-2 text-xl font-bold">Scale</h3>
+        <p class="mt-2 text-slate-300">Deploy, monitor, and optimize for long-term reliability and growth.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container-wrap">
+    <div class="k-card p-8 md:p-10 reveal">
+      <p class="text-xs uppercase tracking-[0.18em] text-slate-400">Testimonials</p>
+      <h2 class="section-title mt-2">What Clients Experience</h2>
+      <p class="section-sub mt-4">
+        "Ken combines deep technical execution with strategic product thinking. Delivery was reliable, communication was clear, and the final system was ready for scale."
+      </p>
+      <p class="mt-5 text-slate-200 font-semibold">Client Feedback Placeholder</p>
+    </div>
+  </div>
+</section>
+
+<section class="section pt-0">
+  <div class="container-wrap">
+    <div class="k-card p-8 md:p-12 text-center reveal">
+      <h2 class="section-title">Ready to Build Something That Lasts?</h2>
+      <p class="section-sub mx-auto mt-4">
+        If you're serious about quality, scalability, and long-term engineering value, let's build your next system together.
+      </p>
+      <div class="mt-7 flex flex-wrap justify-center gap-4">
+        <a href="{% url 'contact' %}" class="k-btn k-btn-primary">Start a Conversation</a>
+        <a href="{% url 'portfolio' %}" class="k-btn k-btn-secondary">Explore More Projects</a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

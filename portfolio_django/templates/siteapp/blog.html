@@ -1,0 +1,18 @@
+{% extends "siteapp/base.html" %}
+{% load static %}
+{% block title %}Venus | Blog{% endblock %}
+{% block content %}
+<section class="container mx-auto max-w-6xl px-4 py-16">
+  <h1 class="text-4xl font-bold mb-8">Blog</h1>
+  <div class="grid md:grid-cols-3 gap-7">
+    {% for item in blog_items %}
+    <article>
+      <img src="{% static item.image %}" alt="{{ item.title }}" class="w-full rounded mb-4">
+      <h2 class="text-2xl font-bold mb-2">{{ item.title }}</h2>
+      <p class="text-sm text-secondary mb-2">{{ item.date }}</p>
+      <p class="text-grey">{{ item.excerpt }}</p>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

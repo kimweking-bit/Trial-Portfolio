@@ -1,0 +1,17 @@
+{% extends "siteapp/base.html" %}
+{% block title %}Venus | Contact{% endblock %}
+{% block content %}
+<section class="container mx-auto max-w-4xl px-4 py-16">
+  <h1 class="text-4xl font-bold mb-6">Contact</h1>
+  <p class="text-grey mb-8">Use this form to send your inquiry.</p>
+  <form class="space-y-4">
+    <div class="grid grid-cols-2 gap-4">
+      <input type="text" placeholder="First name" class="border rounded-lg px-4 py-3 w-full">
+      <input type="text" placeholder="Last name" class="border rounded-lg px-4 py-3 w-full">
+    </div>
+    <input type="email" placeholder="youremail@website.com" class="border rounded-lg px-4 py-3 w-full">
+    <textarea placeholder="Project details" class="border rounded-lg px-4 py-3 w-full h-40"></textarea>
+    <button type="submit" class="bg-primary text-white px-6 py-3 rounded-lg hover:bg-blue-700">Submit Inquiry</button>
+  </form>
+</section>
+{% endblock %}

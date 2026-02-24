@@ -1,0 +1,17 @@
+{% extends "siteapp/base.html" %}
+{% load static %}
+{% block title %}Venus | Portfolio{% endblock %}
+{% block content %}
+<section class="container mx-auto max-w-6xl px-4 py-16">
+  <h1 class="text-4xl font-bold mb-8">Portfolio</h1>
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-7">
+    {% for item in portfolio_items %}
+    <article>
+      <img src="{% static item.image %}" alt="{{ item.title }}" class="w-full rounded-lg mb-4">
+      <h2 class="text-2xl font-bold">{{ item.title }}</h2>
+      <p class="text-secondary">{{ item.info }}</p>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

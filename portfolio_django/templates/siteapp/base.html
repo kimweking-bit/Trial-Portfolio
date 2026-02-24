@@ -1,0 +1,459 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Ken Kimwe | Full Stack Software Engineer{% endblock %}</title>
+  <meta name="description" content="{% block meta_description %}Ken Kimwe builds scalable full-stack systems, high-performance web products, and reliable backend architecture.{% endblock %}">
+  <meta name="theme-color" content="#050816">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  {% block head_extra %}{% endblock %}
+  <style>
+    :root {
+      --bg-0: #050816;
+      --bg-1: #0b1027;
+      --bg-2: #101935;
+      --surface: rgba(17, 24, 39, 0.7);
+      --surface-strong: rgba(15, 23, 42, 0.92);
+      --border: rgba(148, 163, 184, 0.22);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent: #60a5fa;
+      --accent-2: #a78bfa;
+      --accent-soft: rgba(96, 165, 250, 0.2);
+      --success: #22c55e;
+      --radius-xl: 1.25rem;
+      --radius-2xl: 1.75rem;
+      --shadow-elev: 0 28px 80px -36px rgba(59, 130, 246, 0.55);
+    }
+    * {
+      box-sizing: border-box;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      min-height: 100vh;
+      font-family: "Manrope", sans-serif;
+      color: var(--text-primary);
+      background:
+        radial-gradient(circle at 50% -10%, rgba(167, 139, 250, 0.24), transparent 38%),
+        radial-gradient(circle at 85% 0%, rgba(96, 165, 250, 0.2), transparent 30%),
+        linear-gradient(180deg, var(--bg-0) 0%, var(--bg-1) 42%, var(--bg-2) 100%);
+      overflow-x: hidden;
+    }
+    h1, h2, h3, .display-font {
+      font-family: "Space Grotesk", sans-serif;
+    }
+    .site-shell {
+      position: relative;
+      overflow: clip;
+    }
+    .site-shell::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(148, 163, 184, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(148, 163, 184, 0.06) 1px, transparent 1px);
+      background-size: 28px 28px;
+      opacity: 0.14;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .container-wrap {
+      width: min(1120px, 92vw);
+      margin-inline: auto;
+      position: relative;
+      z-index: 1;
+    }
+    .nav-glass {
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      background: rgba(5, 8, 22, 0.72);
+    }
+    .nav-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .nav-link:hover {
+      color: var(--text-primary);
+    }
+    .k-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.25rem;
+      border-radius: 999px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
+    }
+    .k-btn:hover {
+      transform: translateY(-2px);
+    }
+    .k-btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #020617;
+      box-shadow: 0 16px 38px -20px rgba(96, 165, 250, 0.8);
+    }
+    .k-btn-secondary {
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      color: var(--text-primary);
+      background: rgba(15, 23, 42, 0.45);
+    }
+    .k-card {
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0.8), rgba(10, 15, 32, 0.76));
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-elev);
+    }
+    .section {
+      padding: 5.5rem 0;
+    }
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      line-height: 1.04;
+      margin: 0;
+      letter-spacing: -0.02em;
+    }
+    .section-sub {
+      color: var(--text-secondary);
+      max-width: 66ch;
+      margin-top: 1rem;
+    }
+    .k-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(34, 197, 94, 0.45);
+      color: #bbf7d0;
+      background: rgba(34, 197, 94, 0.14);
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .cursor-dot,
+    .cursor-ring {
+      position: fixed;
+      left: 0;
+      top: 0;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0;
+      transform: translate(-50%, -50%);
+      transition: opacity 0.2s ease, width 0.2s ease, height 0.2s ease;
+    }
+    .cursor-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: #60a5fa;
+      box-shadow: 0 0 20px rgba(96, 165, 250, 0.85);
+    }
+    .cursor-ring {
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      border: 1px solid rgba(167, 139, 250, 0.65);
+      background: rgba(167, 139, 250, 0.08);
+    }
+    .cursor-active .cursor-dot,
+    .cursor-active .cursor-ring {
+      opacity: 1;
+    }
+    .cursor-hover .cursor-ring {
+      width: 62px;
+      height: 62px;
+      border-color: rgba(96, 165, 250, 0.85);
+      background: rgba(96, 165, 250, 0.12);
+    }
+    .face-tracker {
+      width: 260px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 6px;
+      filter: drop-shadow(0 26px 56px rgba(96, 165, 250, 0.46));
+    }
+    .avatar-head {
+      width: 148px;
+      height: 148px;
+      border-radius: 999px;
+      background: linear-gradient(160deg, #f8fafc 0%, #cbd5e1 100%);
+      border: 3px solid rgba(147, 197, 253, 0.62);
+      box-shadow: 0 10px 22px rgba(96, 165, 250, 0.25);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      z-index: 2;
+    }
+    .face-eyes {
+      display: flex;
+      gap: 14px;
+    }
+    .face-eye {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: #ffffff;
+      border: 1px solid #94a3b8;
+      position: relative;
+      overflow: hidden;
+    }
+    .face-pupil {
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      background: #111827;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      transition: transform 0.05s linear;
+    }
+    .face-smile {
+      width: 44px;
+      height: 16px;
+      border-bottom: 3px solid rgba(30, 41, 59, 0.95);
+      border-radius: 0 0 14px 14px;
+    }
+    .avatar-body {
+      width: 190px;
+      height: 152px;
+      border-radius: 30px 30px 18px 18px;
+      background: linear-gradient(180deg, #60a5fa 0%, #111827 100%);
+      border: 1px solid rgba(147, 197, 253, 0.35);
+      box-shadow: 0 14px 30px rgba(59, 130, 246, 0.28);
+      margin-top: -6px;
+      position: relative;
+    }
+    .avatar-body::before,
+    .avatar-body::after {
+      content: "";
+      position: absolute;
+      top: 32px;
+      width: 22px;
+      height: 72px;
+      border-radius: 10px;
+      background: #1d4ed8;
+      border: 1px solid rgba(147, 197, 253, 0.35);
+    }
+    .avatar-body::before {
+      left: -15px;
+      transform: rotate(14deg);
+    }
+    .avatar-body::after {
+      right: -15px;
+      transform: rotate(-14deg);
+    }
+    .avatar-legs {
+      width: 124px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .avatar-legs span {
+      width: 24px;
+      height: 42px;
+      border-radius: 8px;
+      background: #0f172a;
+      border: 1px solid rgba(147, 197, 253, 0.35);
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: none;
+    }
+    @media (hover: none), (pointer: coarse) {
+      .cursor-dot,
+      .cursor-ring {
+        display: none;
+      }
+    }
+    @media (max-width: 900px) {
+      .face-tracker {
+        width: 210px;
+      }
+      .avatar-head {
+        width: 120px;
+        height: 120px;
+      }
+      .face-eye {
+        width: 26px;
+        height: 26px;
+      }
+      .face-pupil {
+        width: 10px;
+        height: 10px;
+      }
+      .avatar-body {
+        width: 158px;
+        height: 120px;
+      }
+      .avatar-legs {
+        width: 102px;
+      }
+      .avatar-legs span {
+        height: 34px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="cursor-ring" id="cursor-ring"></div>
+  <div class="cursor-dot" id="cursor-dot"></div>
+  <div class="site-shell">
+    <header class="fixed top-0 z-50 w-full nav-glass">
+      <div class="container-wrap py-4 flex items-center justify-between">
+        <a href="{% url 'home' %}" class="inline-flex items-center gap-3 no-underline text-white">
+          <img src="{% static 'images/logo/logo.svg' %}" alt="Ken Kimwe logo" class="h-8 w-auto">
+          <span class="hidden sm:inline text-xs tracking-[0.2em] uppercase text-slate-400">Ken Kimwe</span>
+        </a>
+        <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
+          <a href="{% url 'home' %}#what-i-do" class="nav-link">What I Do</a>
+          <a href="{% url 'home' %}#featured-projects" class="nav-link">Projects</a>
+          <a href="{% url 'home' %}#process" class="nav-link">Process</a>
+          <a href="{% url 'contact' %}" class="nav-link">Contact</a>
+        </nav>
+        <a href="{% url 'contact' %}" class="k-btn k-btn-primary text-sm">Work With Me</a>
+      </div>
+    </header>
+
+    <main class="pt-24">
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer class="mt-20 border-t border-[var(--border)] bg-[rgba(2,6,23,0.85)]">
+      <div class="container-wrap py-12 grid md:grid-cols-3 gap-8">
+        <div>
+          <h3 class="section-title text-2xl">Build Your Next System with Confidence</h3>
+          <p class="section-sub mt-3">Reliable architecture, quality execution, and business-first engineering decisions.</p>
+        </div>
+        <div>
+          <p class="text-sm text-slate-400 mb-1">Location</p>
+          <p class="text-lg">Kenya</p>
+          <p class="text-sm text-slate-400 mt-3 mb-1">Email</p>
+          <p class="text-lg">ken@kimwe.dev</p>
+        </div>
+        <div>
+          <p class="text-sm text-slate-400 mb-1">Availability</p>
+          <p class="text-lg">Open for long-term product partnerships</p>
+        </div>
+      </div>
+      <div class="border-t border-[var(--border)] py-5 text-center text-sm text-slate-400">
+        (c) 2026 Ken Kimwe. Built with Django.
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      var prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      var isCoarse = window.matchMedia("(hover: none), (pointer: coarse)").matches;
+
+      var dot = document.getElementById("cursor-dot");
+      var ring = document.getElementById("cursor-ring");
+      var mouseX = window.innerWidth / 2;
+      var mouseY = window.innerHeight / 2;
+      var ringX = mouseX;
+      var ringY = mouseY;
+      var rafId = null;
+
+      function updateEyes() {
+        var eyes = document.querySelectorAll(".js-eye");
+        eyes.forEach(function (eye) {
+          var pupil = eye.querySelector(".js-pupil");
+          if (!pupil) return;
+          var rect = eye.getBoundingClientRect();
+          var eyeX = rect.left + rect.width / 2;
+          var eyeY = rect.top + rect.height / 2;
+          var dx = mouseX - eyeX;
+          var dy = mouseY - eyeY;
+          var distance = Math.sqrt(dx * dx + dy * dy) || 1;
+          var maxOffset = 5;
+          var offsetX = (dx / distance) * Math.min(maxOffset, distance / 14);
+          var offsetY = (dy / distance) * Math.min(maxOffset, distance / 14);
+          pupil.style.transform = "translate(calc(-50% + " + offsetX + "px), calc(-50% + " + offsetY + "px))";
+        });
+      }
+
+      function animateCursor() {
+        ringX += (mouseX - ringX) * 0.2;
+        ringY += (mouseY - ringY) * 0.2;
+        if (dot) {
+          dot.style.transform = "translate(" + mouseX + "px, " + mouseY + "px) translate(-50%, -50%)";
+        }
+        if (ring) {
+          ring.style.transform = "translate(" + ringX + "px, " + ringY + "px) translate(-50%, -50%)";
+        }
+        rafId = requestAnimationFrame(animateCursor);
+      }
+
+      if (!isCoarse && !prefersReducedMotion) {
+        window.addEventListener("mousemove", function (event) {
+          mouseX = event.clientX;
+          mouseY = event.clientY;
+          document.body.classList.add("cursor-active");
+          updateEyes();
+          if (!rafId) animateCursor();
+        });
+
+        window.addEventListener("mouseout", function () {
+          document.body.classList.remove("cursor-active");
+        });
+
+        document.querySelectorAll("a, button, input, textarea, select, label").forEach(function (el) {
+          el.addEventListener("mouseenter", function () {
+            document.body.classList.add("cursor-hover");
+          });
+          el.addEventListener("mouseleave", function () {
+            document.body.classList.remove("cursor-hover");
+          });
+        });
+      }
+
+      var revealEls = document.querySelectorAll(".reveal");
+      if (revealEls.length) {
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12 });
+        revealEls.forEach(function (el) { observer.observe(el); });
+      }
+
+      if ("PerformanceObserver" in window) {
+        try {
+          var po = new PerformanceObserver(function (list) {
+            list.getEntries().forEach(function (entry) {
+              window.__sitePerf = window.__sitePerf || {};
+              window.__sitePerf[entry.name || entry.entryType] = entry.startTime || entry.value;
+            });
+          });
+          po.observe({ type: "largest-contentful-paint", buffered: true });
+        } catch (e) {}
+      }
+    })();
+  </script>
+</body>
+</html>
